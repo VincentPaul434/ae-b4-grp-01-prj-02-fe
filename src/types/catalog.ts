@@ -19,6 +19,7 @@ export interface CatalogFilters {
   category: string;
   location: string;
   availabilityTag: string;
+  status?: CatalogItemStatus | "";
 }
 
 export interface CatalogItemFormValues {

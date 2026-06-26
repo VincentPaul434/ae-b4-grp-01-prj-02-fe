@@ -4,7 +4,8 @@ export const defaultCatalogFilters: CatalogFilters = {
   search: "",
   category: "",
   location: "",
-  availabilityTag: ""
+  availabilityTag: "",
+  status: ""
 };
 
 export const defaultCatalogItemValues: CatalogItemFormValues = {

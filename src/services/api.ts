@@ -105,7 +105,8 @@ export async function listCatalogItems(
       search: filters.search,
       category: filters.category,
       location: filters.location,
-      availabilityTag: filters.availabilityTag
+      availabilityTag: filters.availabilityTag,
+      status: filters.status
     })}`,
     { method: "GET", token }
   );

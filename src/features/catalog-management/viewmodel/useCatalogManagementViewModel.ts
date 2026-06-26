@@ -6,7 +6,7 @@ import {
   listCatalogItems,
   updateCatalogItem
 } from "../../../services/api";
-import type { CatalogItem } from "../../../types/catalog";
+import type { CatalogItem, CatalogItemStatus } from "../../../types/catalog";
 import { hasErrors, validateCatalogItem } from "../../../utils/validation";
 import { defaultCatalogFilters, defaultCatalogItemValues } from "../model/catalog-management.model";
 
@@ -42,12 +42,16 @@ export function useCatalogManagementViewModel() {
 
   useEffect(() => {
     void loadItems();
-  }, [accessToken, vendor, filters.search, filters.category, filters.location, filters.availabilityTag]);
+  }, [accessToken, vendor, filters.search, filters.category, filters.location, filters.availabilityTag, filters.status]);
 
   const onFilterChange =
     (field: keyof typeof filters) => (event: ChangeEvent<HTMLInputElement>) => {
       setFilters((current) => ({ ...current, [field]: event.target.value }));
     };
+
+  const onStatusFilterChange = (status: CatalogItemStatus | "") => {
+    setFilters((current) => ({ ...current, status }));
+  };
 
   const onFormChange =
     (field: keyof typeof formValues) =>
@@ -152,6 +156,7 @@ export function useCatalogManagementViewModel() {
     isSubmitting,
     onDelete,
     onFilterChange,
+    onStatusFilterChange,
     onFormChange,
     onLogout: signOut,
     onSubmit,

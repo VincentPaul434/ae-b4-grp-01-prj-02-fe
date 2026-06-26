@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import type { CatalogItemStatus } from "../../../types/catalog";
 import { AlertBanner } from "../../../shared-components/AlertBanner/AlertBanner";
 import { AppButton } from "../../../shared-components/AppButton/AppButton";
 import { AppShell } from "../../../shared-components/AppShell/AppShell";
@@ -26,6 +27,7 @@ export default function CatalogManagementView() {
     isSubmitting,
     onDelete,
     onFilterChange,
+    onStatusFilterChange,
     onFormChange,
     onSubmit,
     resetForm,
@@ -61,15 +63,11 @@ export default function CatalogManagementView() {
     resetForm();
   };
 
-  const handleTabChange = (tab: "all" | "active" | "draft" | "archived") => {
+  const handleTabChange = (tab: "all" | CatalogItemStatus) => {
     setActiveTab(tab);
+    onStatusFilterChange(tab === "all" ? "" : tab);
     setHasSubmitted(false); // Clear error display status when pivoting context view tabs
   };
-
-  const displayedItems = catalogItems.filter((item) => {
-    if (activeTab === "all") return true;
-    return item.status?.toLowerCase() === activeTab;
-  });
 
   return (
     <AppShell subtitle="Manage, monitor, and organize your product catalog and service offerings." title="Catalog Inventory">
@@ -123,9 +121,9 @@ export default function CatalogManagementView() {
             
             {isLoading ? (
               <p style={{ color: "var(--color-text-secondary)" }}>Retrieving manifest database...</p>
-            ) : displayedItems.length ? (
+            ) : catalogItems.length ? (
               <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
-                {displayedItems.map((item) => (
+                {catalogItems.map((item) => (
                   <div
                     key={item.id}
                     style={{

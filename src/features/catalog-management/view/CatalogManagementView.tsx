@@ -208,6 +208,13 @@ export default function CatalogManagementView() {
                   <FormField label="Base Price" type="number" min="0" value={formValues.priceFrom} onChange={onFormChange("priceFrom")} error={hasSubmitted ? formErrors.priceFrom : undefined} />
                   <FormField label="Location / Zone" value={formValues.location} onChange={onFormChange("location")} error={hasSubmitted ? formErrors.location : undefined} />
                 </div>
+                <FormField
+                  label="Tags & Options (CSV)"
+                  placeholder="e.g. weekends, indoor, premium lighting"
+                  value={formValues.availabilityTags}
+                  onChange={onFormChange("availabilityTags")}
+                  error={hasSubmitted ? formErrors.availabilityTags : undefined}
+                />
                 <button
                   disabled={isSubmitting}
                   type="submit"
